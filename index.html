@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop Style</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+
+.header{
+    position: fixed;
+    top:0; left:0;
+    width:100%;
+    z-index:9999;
+}
+
+.top-bar{
+    background:#000;
+    color:White;
+    padding:8px;
+    text-align:center;
+    font-size:14px;
+    font-weight:600;
+}
+
+.navbar{
+    width:100%;
+    background:White;
+    padding:15px 30px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:2px solid #eee;
+}
+
+.navbar img{height:60px;cursor:pointer;}
+
+.menu{display:flex;gap:25px;font-size:16px;font-weight:600;}
+
+.menu a{text-decoration:none;color:black;transition:.3s;}
+
+.menu a:hover{color:#555;border-bottom:2px solid black;}
+
+.spacer{
+    height: 150px;
+}
+
+.section-title{
+    font-size:26px;
+    font-weight:bold;
+    margin:40px 0 10px 20px;
+}
+
+.products{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+    gap:25px;
+    padding:20px;
+}
+
+.product{
+    background:#f5f5f5;
+    padding:15px;
+    border-radius:12px;
+    box-shadow:0px 4px 10px rgba(0,0,0,0.12);
+}
+
+.product img{
+    width:100%;
+    height:250px;
+    border-radius:10px;
+    background:#ddd;
+}
+
+.price{
+    font-size:18px;
+    font-weight:bold;
+    color:#0a66c2;
+    margin-top:5px;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+    <div class="top-bar">Envios Grátis 24 / 48 Horas</div>
+
+    <div class="navbar">
+        <a href="#inicio"><img src="logo.png"></a>
+
+        <div class="menu">
+            <a href="#inicio">INÍCIO</a>
+            <a href="#sapatos">SAPATOS</a>
+            <a href="#fatos">FATOS DE INVERNO</a>
+            <a href="#casacos">CASACOS</a>
+            <a href="#acessorios">ACESSÓRIOS</a>
+        </div>
+    </div>
+</div>
+
+<div class="spacer"></div>
+
+<section id="inicio">
+    <div style="
+        width:100%;
+        height:350px;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        background:white;">
+        <img src="logo.png" style="height:100%;object-fit:contain;">
+    </div>
+</section>
+
+<!-- CARDS ESTILO SHOPCAPI -->
+<section style="padding: 40px 20px;">
+    <div style="
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        width: 100%;
+        max-width: 1200px;
+        margin: auto;
+    ">
+
+        <div style="
+            background: White;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 10px 10px 10px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        ">
+            <div style="font-size: 35px;">🚚</div>
+            <h3 style="font-size: 20px;">Envios</h3>
+            <p style="color: #555;">Envios 24/48 horas úteis</p>
+        </div>
+
+        <div style="
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 10px 10px 10px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        ">
+            <div style="font-size: 35px;">💳</div>
+            <h3 style="font-size: 20px;">Pagamentos</h3>
+            <p style="color: #555;">Pagamento no ato da entrega ou MB WAY (codigo de levantamento)</p>
+        </div>
+
+        <div style="
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 10px 10px 10px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        ">
+            <div style="font-size: 35px;">📞</div>
+            <h3 style="font-size: 20px;">Apoio 24/7</h3>
+            <p style="color: #555;">Assistência ao cliente 24 horas no nosso instagram @shop_style.ofc</p>
+        </div>
+
+    </div>
+</section>
+
+<h2 class="section-title" id="sapatos">Sapatos </h2>
+<div class="products">
+
+    <div class="product">
+        <img src="lv_skate_preto1.jpg">
+        <h3>LV Skate Preto  40-45</h3>
+        <p class="price">90€</p>
+    </div>
+
+    <div class="product">
+        <img src="lv_skate_bege1.jpg">
+        <h3>LV Skate Bege  40-45</h3>
+        <p class="price">90€</p>
+    </div>
+         
+    <div class="product">
+        <img src="lv_skate_cinza1.jpg">
+        <h3>LV Skate Cinza  40-45 </h3>
+        <p class="price">90€</p>
+    </div>
+    
+    <div class="product">
+        <img src="lv_skate_azul1.jpg">
+        <h3>LV Skate Azul  40-45</h3>
+        <p class="price">90€</p>
+    </div>
+    
+    <div class="product">
+        <img src="lv_skate_fullpreto1.jpg">
+        <h3>LV Skate Full Preto  40-45</h3>
+        <p class="price">90€</p>
+    </div>
+    
+    <div class="product">
+        <img src="lv_skate_fullcinza1.jpg">
+        <h3>LV Skate Full Cinza  40-45</h3>
+        <p class="price">90€</p>
+    </div>
+    
+    <div class="product">
+        <img src="lv_skate_fullpreto_branco1.jpg">
+        <h3>LV Skate Full Preto Atacadores Brancos  40-45</h3>
+        <p class="price">90€</p>
+    </div>
+    
+    <div class="product">
+        <img src="Dior_b30_branco1.jpg">
+        <h3>Dior B30 Brancos  40-45</h3>
+        <p class="price">90€</p>
+    </div>
+    
+    <div class="product">
+        <img src="Dior_b22_azul_branco1.jpg">
+        <h3>Dior B22 Brancos e Azul  40-45</h3>
+        <p class="price">90€</p>
+    </div>
+    
+    <div class="product">
+        <img src="Dior_b22_preto1.jpg">
+        <h3>Dior B22 Pretos  40-45</h3>
+        <p class="price">90€</p>
+    </div>
+    
+</div>
+
+<h2 class="section-title" id="fatos">Fatos de Inverno</h2>
+<div class="products">
+
+    <div class="product">
+        <img src="Nike_tech1.jpg">
+        <h3>Nike Tech Cores Diferentes S-XL</h3>
+        <p class="price">80€</p>
+    </div>
+    
+    <div class="product">
+        <img src="Yamaha.jpg">
+        <h3>Yamaha S-XL</h3>
+        <p class="price">80€</p>
+    </div>
+    
+    <div class="product">
+        <img src="S.jpg">
+        <h3>EA7 Armani S</h3>
+        <p class="price">80€</p>
+    </div>
+    
+    <div class="product">
+        <img src="l xl .jpg">
+        <h3>Lacoste Varios Modelos S-XL</h3>
+        <p class="price">80€</p>
+    </div>
+    
+    <div class="product">
+        <img src="Under.jpg">
+        <h3>Under Armour Varios Modelos S-XL</h3>
+        <p class="price">80€</p>
+    </div>
+</div>
+
+<h2 class="section-title" id="casacos">Casacos</h2>
+<div class="products">
+
+    <div class="product">
+        <img src="Polo.jpg">
+        <h3>Casaco RALPH LAUREN</h3>
+        <p class="price">90€</p>
+    </div>
+    
+    <div class="product">
+        <img src="Trap.jpg">
+        <h3>Casaco TRAPSTAR XS-M</h3>
+        <p class="price">90€</p>
+    </div>
+    
+    <div class="product">
+        <img src="TRAPS.jpg">
+        <h3>Casaco TRAPSTAR S</h3>
+        <p class="price">90€</p>
+    </div>
+</div>
+
+<h2 class="section-title" id="acessorios">Acessórios</h2>
+<div class="products">
+
+    <div class="product">
+        <img src="Prada.jpg">
+        <h3>Bolsa Prada</h3>
+        <p class="price">70€</p>
+    </div>
+</div>
+
+</body>
+</html>
