@@ -1,304 +1,314 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shop Style</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop Style</title>
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #000000;
+            --card-bg: #f5f5f5;
+            --navbar-bg: #ffffff;
+            --border-color: #eeeeee;
+            --accent: #0a66c2;
+        }
 
-.header{
-    position: fixed;
-    top:0; left:0;
-    width:100%;
-    z-index:9999;
-}
+        [data-theme="dark"] {
+            --bg-color: #121212;
+            --text-color: #ffffff;
+            --card-bg: #1e1e1e;
+            --navbar-bg: #1e1e1e;
+            --border-color: #333333;
+        }
 
-.top-bar{
-    background:#000;
-    color:White;
-    padding:8px;
-    text-align:center;
-    font-size:14px;
-    font-weight:600;
-}
+        *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif; transition: background 0.3s, color 0.3s;}
 
-.navbar{
-    width:100%;
-    background:White;
-    padding:15px 30px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    border-bottom:2px solid #eee;
-}
+        body { background-color: var(--bg-color); color: var(--text-color); scroll-behavior: smooth;}
 
-.navbar img{height:60px;cursor:pointer;}
+        .header{ position: fixed; top:0; left:0; width:100%; z-index:999; }
+        .top-bar{ background:#000; color:White; padding:8px; text-align:center; font-size:12px; font-weight:600; text-transform: uppercase;}
+        
+        .navbar{
+            width:100%; background: var(--navbar-bg); padding:10px 30px;
+            display:flex; align-items:center; justify-content: space-between;
+            border-bottom:1px solid var(--border-color);
+        }
 
-.menu{display:flex;gap:25px;font-size:16px;font-weight:600;}
+        .nav-left { display: flex; align-items: center; gap: 20px; }
+        .logo-img { height: 40px; cursor: pointer; }
+        
+        .nav-links { display: flex; gap: 15px; }
+        .nav-links a { text-decoration: none; color: var(--text-color); font-weight: bold; font-size: 13px; text-transform: uppercase; cursor: pointer; }
 
-.menu a{text-decoration:none;color:black;transition:.3s;}
+        .search-container { flex: 1; max-width: 400px; margin: 0 20px; }
+        .search-bar { 
+            width: 100%; padding: 8px 20px; border-radius: 25px; 
+            border: 1px solid #444; background: transparent; color: var(--text-color); outline: none;
+        }
 
-.menu a:hover{color:#555;border-bottom:2px solid black;}
+        .nav-right { display: flex; gap: 15px; align-items: center; }
+        .btn { border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .theme-btn { background: var(--accent); color: white; width: 35px; height: 35px; border-radius: 50%; }
+        .cart-btn { background: #25d366; color: white; position: relative; width: 35px; height: 35px; border-radius: 50%; }
+        .cart-count { background: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 10px; position: absolute; top: -5px; right: -5px; }
 
-.spacer{
-    height: 150px;
-}
+        .spacer{ height: 140px; }
+        .hero { text-align: center; padding: 40px 20px; }
+        .hero img { max-width: 200px; margin-bottom: 20px; }
 
-.section-title{
-    font-size:26px;
-    font-weight:bold;
-    margin:40px 0 10px 20px;
-}
+        .main-container { padding: 20px; }
+        .section-title{ font-size:24px; font-weight:bold; margin: 40px 0 20px; border-left: 4px solid var(--accent); padding-left: 10px; }
+        
+        .products{ display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:25px; }
+        .product { background: var(--card-bg); padding:15px; border-radius:12px; text-align:center; display: flex; flex-direction: column; }
+        
+        /* Classes utilitárias para esconder elementos */
+        .hidden { display: none !important; }
 
-.products{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
-    gap:25px;
-    padding:20px;
-}
+        .product img{ width:100%; height:280px; border-radius:10px; object-fit: cover; margin-bottom: 15px; }
+        
+        .size-selector { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #444; background: var(--bg-color); color: var(--text-color); }
+        .price{ font-size:20px; font-weight:bold; color: var(--accent); margin-bottom: 15px; }
+        .buy-btn { background: var(--accent); color: white; width: 100%; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
 
-.product{
-    background:#f5f5f5;
-    padding:15px;
-    border-radius:12px;
-    box-shadow:0px 4px 10px rgba(0,0,0,0.12);
-}
+        #no-product-msg { display: none; text-align: center; padding: 50px; font-size: 18px; color: #888; font-weight: bold; width: 100%; }
 
-.product img{
-    width:100%;
-    height:250px;
-    border-radius:10px;
-    background:#ddd;
-}
-
-.price{
-    font-size:18px;
-    font-weight:bold;
-    color:#0a66c2;
-    margin-top:5px;
-}
-</style>
+        .cart-sidebar {
+            position: fixed; right: -100%; top: 0; width: 350px; height: 100%;
+            background: var(--navbar-bg); box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+            z-index: 1000; transition: 0.4s; padding: 20px; display: flex; flex-direction: column;
+        }
+        .cart-sidebar.active { right: 0; }
+        .cart-items { flex: 1; overflow-y: auto; margin: 20px 0; }
+        .cart-item { border-bottom: 1px solid var(--border-color); padding: 10px 0; display: flex; justify-content: space-between; align-items: center; }
+        
+        .checkout-form { display: none; flex-direction: column; gap: 10px; }
+        .checkout-form input, .checkout-form select { padding: 10px; border-radius: 5px; border: 1px solid #ccc; background: var(--bg-color); color: var(--text-color); width: 100%; }
+        .checkout-active .cart-items { display: none; }
+        .checkout-active .checkout-form { display: flex; }
+    </style>
 </head>
-<body>
+<body data-theme="dark">
 
 <div class="header">
     <div class="top-bar">Envios Grátis 24 / 48 Horas</div>
-
     <div class="navbar">
-        <a href="#inicio"><img src="logo.png"></a>
-
-        <div class="menu">
-            <a href="#inicio">INÍCIO</a>
-            <a href="#sapatos">SAPATOS</a>
-            <a href="#fatos">FATOS DE INVERNO</a>
-            <a href="#casacos">CASACOS</a>
-            <a href="#acessorios">ACESSÓRIOS</a>
+        <div class="nav-left">
+            <img src="logo.png" class="logo-img" onclick="window.scrollTo(0,0)">
+            <div class="nav-links">
+                <a onclick="window.scrollTo(0,0)">INÍCIO</a>
+                <a href="#sapatos">SAPATOS</a>
+                <a href="#fatos">FATOS DE INVERNO</a>
+                <a href="#casacos">CASACOS</a>
+                <a href="#acessorios">ACESSÓRIOS</a>
+            </div>
+        </div>
+        <div class="search-container">
+            <input type="text" id="search-input" class="search-bar" placeholder="Pesquisar produto..." onkeyup="filterProducts()">
+        </div>
+        <div class="nav-right">
+            <button class="btn theme-btn" onclick="toggleTheme()">🌓</button>
+            <button class="btn cart-btn" onclick="toggleCart()">🛒 <span class="cart-count" id="cart-count">0</span></button>
         </div>
     </div>
 </div>
 
 <div class="spacer"></div>
 
-<section id="inicio">
-    <div style="
-        width:100%;
-        height:350px;
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        background:white;">
-        <img src="logo.png" style="height:100%;object-fit:contain;">
-    </div>
-</section>
-
-<!-- CARDS ESTILO SHOPCAPI -->
-<section style="padding: 40px 20px;">
-    <div style="
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 20px;
-        width: 100%;
-        max-width: 1200px;
-        margin: auto;
-    ">
-
-        <div style="
-            background: White;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 10px 10px 10px rgba(0,0,0,0.1);
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        ">
-            <div style="font-size: 35px;">🚚</div>
-            <h3 style="font-size: 20px;">Envios</h3>
-            <p style="color: #555;">Envios 24/48 horas úteis</p>
-        </div>
-
-        <div style="
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 10px 10px 10px rgba(0,0,0,0.1);
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        ">
-            <div style="font-size: 35px;">💳</div>
-            <h3 style="font-size: 20px;">Pagamentos</h3>
-            <p style="color: #555;">Pagamento no ato da entrega ou MB WAY (codigo de levantamento)</p>
-        </div>
-
-        <div style="
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 10px 10px 10px rgba(0,0,0,0.1);
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        ">
-            <div style="font-size: 35px;">📞</div>
-            <h3 style="font-size: 20px;">Apoio 24/7</h3>
-            <p style="color: #555;">Assistência ao cliente 24 horas no nosso instagram @shop_style.ofc</p>
-        </div>
-
-    </div>
-</section>
-
-<h2 class="section-title" id="sapatos">Sapatos </h2>
-<div class="products">
-
-    <div class="product">
-        <img src="lv_skate_preto1.jpg">
-        <h3>LV Skate Preto  40-45</h3>
-        <p class="price">90€</p>
-    </div>
-
-    <div class="product">
-        <img src="lv_skate_bege1.jpg">
-        <h3>LV Skate Bege  40-45</h3>
-        <p class="price">90€</p>
-    </div>
-         
-    <div class="product">
-        <img src="lv_skate_cinza1.jpg">
-        <h3>LV Skate Cinza  40-45 </h3>
-        <p class="price">90€</p>
-    </div>
-    
-    <div class="product">
-        <img src="lv_skate_azul1.jpg">
-        <h3>LV Skate Azul  40-45</h3>
-        <p class="price">90€</p>
-    </div>
-    
-    <div class="product">
-        <img src="lv_skate_fullpreto1.jpg">
-        <h3>LV Skate Full Preto  40-45</h3>
-        <p class="price">90€</p>
-    </div>
-    
-    <div class="product">
-        <img src="lv_skate_fullcinza1.jpg">
-        <h3>LV Skate Full Cinza  40-45</h3>
-        <p class="price">90€</p>
-    </div>
-    
-    <div class="product">
-        <img src="lv_skate_fullpreto_branco1.jpg">
-        <h3>LV Skate Full Preto Atacadores Brancos  40-45</h3>
-        <p class="price">90€</p>
-    </div>
-    
-    <div class="product">
-        <img src="Dior_b30_branco1.jpg">
-        <h3>Dior B30 Brancos  40-45</h3>
-        <p class="price">90€</p>
-    </div>
-    
-    <div class="product">
-        <img src="Dior_b22_azul_branco1.jpg">
-        <h3>Dior B22 Brancos e Azul  40-45</h3>
-        <p class="price">90€</p>
-    </div>
-    
-    <div class="product">
-        <img src="Dior_b22_preto1.jpg">
-        <h3>Dior B22 Pretos  40-45</h3>
-        <p class="price">90€</p>
-    </div>
-    
+<div class="hero" id="hero-section">
+    <img src="logo.png" alt="Shop Style Logo Big">
+    <h1>Bem-vindo à Shop Style</h1>
 </div>
 
-<h2 class="section-title" id="fatos">Fatos de Inverno</h2>
-<div class="products">
+<div class="main-container">
+    <div id="no-product-msg">❌ Nenhum produto encontrado com esse nome</div>
 
-    <div class="product">
-        <img src="Nike_tech1.jpg">
-        <h3>Nike Tech Cores Diferentes S-XL</h3>
-        <p class="price">80€</p>
+    <section class="category-section" id="sec-sapatos">
+        <h2 class="section-title" id="sapatos">Sapatos</h2>
+        <div class="products" id="list-sapatos"></div>
+    </section>
+
+    <section class="category-section" id="sec-fatos">
+        <h2 class="section-title" id="fatos">Fatos de Inverno</h2>
+        <div class="products" id="list-fatos"></div>
+    </section>
+
+    <section class="category-section" id="sec-casacos">
+        <h2 class="section-title" id="casacos">Casacos</h2>
+        <div class="products" id="list-casacos"></div>
+    </section>
+
+    <section class="category-section" id="sec-acessorios">
+        <h2 class="section-title" id="acessorios">Acessórios</h2>
+        <div class="products" id="list-acessorios"></div>
+    </section>
+</div>
+
+<div class="cart-sidebar" id="cart-sidebar">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2>Carrinho</h2>
+        <button onclick="toggleCart()" style="background:none; border:none; font-size:28px; cursor:pointer; color: var(--text-color);">&times;</button>
     </div>
-    
-    <div class="product">
-        <img src="Yamaha.jpg">
-        <h3>Yamaha S-XL</h3>
-        <p class="price">80€</p>
+    <div id="cart-content" class="cart-items"></div>
+    <div id="checkout-section" class="checkout-form">
+        <h3>Dados de Envio</h3>
+        <input type="text" id="nome" placeholder="Nome Completo">
+        <input type="text" id="morada" placeholder="Morada">
+        <input type="text" id="contacto" placeholder="Telemóvel">
+        <select id="pagamento">
+            <option value="" disabled selected>Método de Pagamento</option>
+            <option value="MB WAY">MB WAY</option>
+            <option value="Contra-Reembolso">Contra-Reembolso</option>
+        </select>
     </div>
-    
-    <div class="product">
-        <img src="S.jpg">
-        <h3>EA7 Armani S</h3>
-        <p class="price">80€</p>
-    </div>
-    
-    <div class="product">
-        <img src="l xl .jpg">
-        <h3>Lacoste Varios Modelos S-XL</h3>
-        <p class="price">80€</p>
-    </div>
-    
-    <div class="product">
-        <img src="Under.jpg">
-        <h3>Under Armour Varios Modelos S-XL</h3>
-        <p class="price">80€</p>
+    <div style="margin-top: auto; padding-top: 20px;">
+        <h3 id="total-price" style="text-align: right; margin-bottom: 10px;">Total: 0€</h3>
+        <button id="main-cart-btn" class="buy-btn" onclick="processCheckout()" style="background: #25d366;">Finalizar Pedido</button>
     </div>
 </div>
 
-<h2 class="section-title" id="casacos">Casacos</h2>
-<div class="products">
+<script>
+    const sapatos = [
+        {id: 'lv1', name: 'LV Skate Preto', price: 90, img: 'lv_skate_preto1.jpg'},
+        {id: 'lv2', name: 'LV Skate Bege', price: 90, img: 'lv_skate_bege1.jpg'},
+        {id: 'lv3', name: 'LV Skate Cinza', price: 90, img: 'lv_skate_cinza1.jpg'},
+        {id: 'lv4', name: 'LV Skate Azul', price: 90, img: 'lv_skate_azul1.jpg'},
+        {id: 'lv5', name: 'LV Skate Full Preto', price: 90, img: 'lv_skate_fullpreto1.jpg'},
+        {id: 'lv6', name: 'LV Skate Full Cinza', price: 90, img: 'lv_skate_fullcinza1.jpg'},
+        {id: 'lv7', name: 'LV Skate Preto/Branco', price: 90, img: 'lv_skate_fullpreto_branco1.jpg'},
+        {id: 'dior1', name: 'Dior B30 Brancos', price: 90, img: 'Dior_b30_branco1.jpg'},
+        {id: 'dior2', name: 'Dior B22 Azul/Branco', price: 90, img: 'Dior_b22_azul_branco1.jpg'},
+        {id: 'dior3', name: 'Dior B22 Pretos', price: 90, img: 'Dior_b22_preto1.jpg'}
+    ];
 
-    <div class="product">
-        <img src="Polo.jpg">
-        <h3>Casaco RALPH LAUREN</h3>
-        <p class="price">90€</p>
-    </div>
-    
-    <div class="product">
-        <img src="trap.jpg">
-        <h3>Casaco TRAPSTAR XS-M</h3>
-        <p class="price">90€</p>
-    </div>
-    
-    <div class="product">
-        <img src="TRAPS.jpg">
-        <h3>Casaco TRAPSTAR S</h3>
-        <p class="price">90€</p>
-    </div>
-</div>
+    const fatos = [
+        {id: 'nk1', name: 'Nike Tech', price: 80, img: 'Nike_tech1.jpg'},
+        {id: 'ym1', name: 'Yamaha', price: 80, img: 'Yamaha.jpg'},
+        {id: 'am1', name: 'EA7 Armani', price: 80, img: 'S.jpg'},
+        {id: 'lc1', name: 'Lacoste', price: 80, img: 'l xl .jpg'},
+        {id: 'ua1', name: 'Under Armour', price: 80, img: 'Under.jpg'}
+    ];
 
-<h2 class="section-title" id="acessorios">Acessórios</h2>
-<div class="products">
+    const casacos = [
+        {id: 'rl1', name: 'Casaco Ralph Lauren', price: 90, img: 'Polo.jpg'},
+        {id: 'ts1', name: 'Casaco Trapstar XS-M', price: 90, img: 'Trap.jpg'},
+        {id: 'ts2', name: 'Casaco Trapstar S', price: 90, img: 'TRAPS.jpg'}
+    ];
 
-    <div class="product">
-        <img src="Prada.jpg">
-        <h3>Bolsa Prada</h3>
-        <p class="price">70€</p>
-    </div>
-</div>
+    const acessorios = [
+        {id: 'pr1', name: 'Bolsa Prada', price: 70, img: 'Prada.jpg'}
+    ];
 
+    function render() {
+        document.getElementById('list-sapatos').innerHTML = sapatos.map(p => createHTML(p, [40,41,42,43,44,45])).join('');
+        document.getElementById('list-fatos').innerHTML = fatos.map(p => createHTML(p, ['S','M','L','XL'])).join('');
+        document.getElementById('list-casacos').innerHTML = casacos.map(p => createHTML(p, ['S','M','L','XL'])).join('');
+        document.getElementById('list-acessorios').innerHTML = acessorios.map(p => createHTML(p, ['Único'])).join('');
+    }
+
+    function createHTML(p, sizes) {
+        return `
+            <div class="product" data-name="${p.name.toLowerCase()}">
+                <img src="${p.img}">
+                <h3>${p.name}</h3>
+                <p class="price">${p.price}€</p>
+                <select class="size-selector" id="size-${p.id}">
+                    ${sizes.map(s => `<option value="${s}">Tamanho ${s}</option>`).join('')}
+                </select>
+                <button class="buy-btn" onclick="addToCart('${p.name}', ${p.price}, 'size-${p.id}')">Adicionar</button>
+            </div>
+        `;
+    }
+
+    // FUNÇÃO DE FILTRAGEM CORRIGIDA
+    function filterProducts() {
+        const query = document.getElementById('search-input').value.toLowerCase();
+        const sections = document.querySelectorAll('.category-section');
+        const hero = document.getElementById('hero-section');
+        let totalVisible = 0;
+
+        // Se houver pesquisa, esconde o logótipo central (Hero) para dar espaço
+        if (query.length > 0) hero.classList.add('hidden');
+        else hero.classList.remove('hidden');
+
+        sections.forEach(section => {
+            const products = section.querySelectorAll('.product');
+            let sectionHasMatch = false;
+
+            products.forEach(p => {
+                const name = p.getAttribute('data-name');
+                if (name.includes(query)) {
+                    p.classList.remove('hidden');
+                    sectionHasMatch = true;
+                    totalVisible++;
+                } else {
+                    p.classList.add('hidden');
+                }
+            });
+
+            // Esconde ou mostra a SECÇÃO INTEIRA (Título + Grelha)
+            if (sectionHasMatch) {
+                section.classList.remove('hidden');
+            } else {
+                section.classList.add('hidden');
+            }
+        });
+
+        // Mostra mensagem de erro se nada for encontrado
+        document.getElementById('no-product-msg').style.display = (totalVisible === 0 && query !== "") ? "block" : "none";
+    }
+
+    let cart = [];
+    function addToCart(name, price, sizeId) {
+        const size = document.getElementById(sizeId).value;
+        cart.push({ name, price, size });
+        updateCart();
+        document.getElementById('cart-sidebar').classList.add('active');
+    }
+
+    function updateCart() {
+        const content = document.getElementById('cart-content');
+        let total = 0;
+        content.innerHTML = '';
+        cart.forEach((item, index) => {
+            total += item.price;
+            content.innerHTML += `<div class="cart-item">
+                <span><b>${item.name}</b> (${item.size})</span>
+                <button onclick="removeItem(${index})" style="color:red; background:none; border:none; cursor:pointer;">&times;</button>
+            </div>`;
+        });
+        document.getElementById('cart-count').innerText = cart.length;
+        document.getElementById('total-price').innerText = `Total: ${total}€`;
+    }
+
+    function removeItem(i) { cart.splice(i, 1); updateCart(); }
+    function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('active'); }
+    function toggleTheme() { document.body.setAttribute('data-theme', document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); }
+
+    function processCheckout() {
+        const sidebar = document.getElementById('cart-sidebar');
+        if(!sidebar.classList.contains('checkout-active')) {
+            if(cart.length === 0) return alert("Carrinho vazio!");
+            sidebar.classList.add('checkout-active');
+            document.getElementById('main-cart-btn').innerText = "Enviar para o WhatsApp";
+        } else {
+            const n = document.getElementById('nome').value;
+            const m = document.getElementById('morada').value;
+            const c = document.getElementById('contacto').value;
+            const p = document.getElementById('pagamento').value;
+
+            if(!n || !m || !c || !p) return alert("Preencha todos os dados!");
+            
+            let itens = cart.map(i => ` • ${i.name} (Tamanho: ${i.size})`).join('%0A');
+            let total = cart.reduce((a, b) => a + b.price, 0);
+            let texto = `*NOVA ENCOMENDA SHOP STYLE*%0A%0A*Produtos:*%0A${itens}%0A%0A*VALOR TOTAL:* ${total}€%0A%0A*DADOS:*%0A${n}%0A${m}%0A${c}%0A%0A*MÉTODO:* ${p}`;
+            window.open(`https://wa.me/351920019932?text=${texto}`, '_blank');
+        }
+    }
+
+    render();
+</script>
 </body>
 </html>
