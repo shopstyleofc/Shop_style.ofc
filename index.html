@@ -3,218 +3,230 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop Style</title>
+    <title>Shop Style | Premium Store</title>
 
     <style>
         :root {
             --bg-color: #ffffff;
-            --text-color: #000000;
-            --card-bg: #f5f5f5;
-            --navbar-bg: #ffffff;
+            --text-color: #1a1a1a;
+            --card-bg: #f8f8f8;
+            --navbar-bg: rgba(255, 255, 255, 0.95);
             --border-color: #eeeeee;
-            --accent: #0a66c2;
+            --accent: #007bff;
+            --topbar-bg: #333333;
         }
 
         [data-theme="dark"] {
-            --bg-color: #121212;
+            --bg-color: #000000;
             --text-color: #ffffff;
-            --card-bg: #1e1e1e;
-            --navbar-bg: #1e1e1e;
+            --card-bg: #111111;
+            --navbar-bg: #000000;
             --border-color: #333333;
+            --accent: #007bff;
         }
 
-        *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif; transition: background 0.3s, color 0.3s;}
+        * { margin:0; padding:0; box-sizing:border-box; font-family: Arial, sans-serif; transition: background 0.3s, color 0.3s; }
+        body { background-color: var(--bg-color); color: var(--text-color); scroll-behavior: smooth; }
 
-        body { background-color: var(--bg-color); color: var(--text-color); scroll-behavior: smooth;}
-
-        .header{ position: fixed; top:0; left:0; width:100%; z-index:999; }
-        .top-bar{ background:#000; color:White; padding:8px; text-align:center; font-size:12px; font-weight:600; text-transform: uppercase;}
+        .header { position: fixed; top:0; left:0; width:100%; z-index:999; }
+        .top-bar { background: var(--topbar-bg); color: white; padding:8px; text-align:center; font-size:12px; font-weight:600; text-transform: uppercase; }
         
-        .navbar{
+        .navbar {
             width:100%; background: var(--navbar-bg); padding:10px 30px;
             display:flex; align-items:center; justify-content: space-between;
-            border-bottom:1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
         }
 
-        .nav-left { display: flex; align-items: center; gap: 20px; }
-        .logo-img { height: 40px; cursor: pointer; }
-        
-        .nav-links { display: flex; gap: 15px; }
-        .nav-links a { text-decoration: none; color: var(--text-color); font-weight: bold; font-size: 13px; text-transform: uppercase; cursor: pointer; }
+        .nav-links { display: flex; gap: 20px; list-style: none; }
+        .dropdown { position: relative; }
+        .nav-links a { text-decoration: none; color: var(--text-color); font-weight: bold; font-size: 11px; text-transform: uppercase; cursor: pointer; }
 
-        .search-container { flex: 1; max-width: 400px; margin: 0 20px; }
-        .search-bar { 
-            width: 100%; padding: 8px 20px; border-radius: 25px; 
-            border: 1px solid #444; background: transparent; color: var(--text-color); outline: none;
+        .dropdown-content {
+            display: none; position: absolute; background-color: var(--card-bg); min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.5); z-index: 1; border: 1px solid var(--border-color); top: 100%;
         }
+        .dropdown-content a { padding: 12px 16px; display: block; font-size: 10px; border-bottom: 1px solid var(--border-color); color: var(--text-color); text-decoration: none;}
+        .dropdown-content a:hover { background-color: var(--border-color); }
+        .dropdown:hover .dropdown-content { display: block; }
 
-        .nav-right { display: flex; gap: 15px; align-items: center; }
-        .btn { border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-        .theme-btn { background: var(--accent); color: white; width: 35px; height: 35px; border-radius: 50%; }
-        .cart-btn { background: #25d366; color: white; position: relative; width: 35px; height: 35px; border-radius: 50%; }
-        .cart-count { background: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 10px; position: absolute; top: -5px; right: -5px; }
+        .search-bar { padding: 8px 20px; border-radius: 25px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-color); outline: none; width: 250px; }
 
-        .spacer{ height: 140px; }
-        .hero { text-align: center; padding: 40px 20px; }
-        .hero img { max-width: 200px; margin-bottom: 20px; }
-
-        .main-container { padding: 20px; }
-        .section-title{ font-size:24px; font-weight:bold; margin: 40px 0 20px; border-left: 4px solid var(--accent); padding-left: 10px; }
+        .main-container { padding: 40px 20px; max-width: 1300px; margin: 120px auto 0; }
+        .section-title { font-size: 24px; font-weight: bold; margin: 40px 0 20px; border-left: 5px solid var(--accent); padding-left: 15px; }
+        .products { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; }
+        .product { background: var(--card-bg); padding: 15px; border-radius: 15px; text-align: center; border: 1px solid var(--border-color); }
+        .product img { width: 100%; height: 280px; border-radius: 10px; object-fit: cover; margin-bottom: 15px; }
         
-        .products{ display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:25px; }
-        .product { background: var(--card-bg); padding:15px; border-radius:12px; text-align:center; display: flex; flex-direction: column; }
-        
-        /* Classes utilitárias para esconder elementos */
-        .hidden { display: none !important; }
+        .size-container { display: flex; justify-content: center; gap: 5px; flex-wrap: wrap; margin-bottom: 15px; }
+        .size-chip { padding: 6px 10px; border: 1px solid var(--border-color); border-radius: 5px; cursor: pointer; font-size: 12px; background: var(--bg-color); font-weight: bold; }
+        .size-chip.active { background: var(--accent); color: white; border-color: var(--accent); }
 
-        .product img{ width:100%; height:280px; border-radius:10px; object-fit: cover; margin-bottom: 15px; }
-        
-        .size-selector { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #444; background: var(--bg-color); color: var(--text-color); }
-        .price{ font-size:20px; font-weight:bold; color: var(--accent); margin-bottom: 15px; }
         .buy-btn { background: var(--accent); color: white; width: 100%; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
-
-        #no-product-msg { display: none; text-align: center; padding: 50px; font-size: 18px; color: #888; font-weight: bold; width: 100%; }
-
-        .cart-sidebar {
-            position: fixed; right: -100%; top: 0; width: 350px; height: 100%;
-            background: var(--navbar-bg); box-shadow: -5px 0 15px rgba(0,0,0,0.2);
-            z-index: 1000; transition: 0.4s; padding: 20px; display: flex; flex-direction: column;
-        }
-        .cart-sidebar.active { right: 0; }
-        .cart-items { flex: 1; overflow-y: auto; margin: 20px 0; }
-        .cart-item { border-bottom: 1px solid var(--border-color); padding: 10px 0; display: flex; justify-content: space-between; align-items: center; }
         
-        .checkout-form { display: none; flex-direction: column; gap: 10px; }
-        .checkout-form input, .checkout-form select { padding: 10px; border-radius: 5px; border: 1px solid #ccc; background: var(--bg-color); color: var(--text-color); width: 100%; }
-        .checkout-active .cart-items { display: none; }
-        .checkout-active .checkout-form { display: flex; }
+        .cart-sidebar { position: fixed; right: -100%; top: 0; width: 350px; height: 100%; background: var(--bg-color); z-index: 1000; transition: 0.4s; padding: 25px; display: flex; flex-direction: column; box-shadow: -5px 0 15px rgba(0,0,0,0.2); }
+        .cart-sidebar.active { right: 0; }
+        .hidden { display: none !important; }
     </style>
 </head>
 <body data-theme="dark">
 
-<div class="header">
+
+</div> 
+
+
+<style>
+    .welcome-section {
+    text-align: center;
+    padding: 60px 20px;
+    margin-top: 150px; /* VALOR ALTERADO */
+}
+.main-logo {
+    width: 180px;
+    border-radius: 50%; /* VALOR ALTERADO PARA CÍRCULO */
+    margin-bottom: 15px;
+    border: 5px solid white; /* ADICIONADO */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+    .welcome-section h1 {
+        font-family: 'Arial Black', sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+</style>
+<body data-theme="dark">
+
+    <div class="header">
     <div class="top-bar">Envios Grátis 24 / 48 Horas</div>
     <div class="navbar">
-        <div class="nav-left">
-            <img src="logo.png" class="logo-img" onclick="window.scrollTo(0,0)">
-            <div class="nav-links">
-                <a onclick="window.scrollTo(0,0)">INÍCIO</a>
-                <a href="#sapatos">SAPATOS</a>
-                <a href="#fatos">FATOS DE INVERNO</a>
-                <a href="#casacos">CASACOS</a>
-                <a href="#acessorios">ACESSÓRIOS</a>
-            </div>
-        </div>
-        <div class="search-container">
-            <input type="text" id="search-input" class="search-bar" placeholder="Pesquisar produto..." onkeyup="filterProducts()">
-        </div>
-        <div class="nav-right">
-            <button class="btn theme-btn" onclick="toggleTheme()">🌓</button>
-            <button class="btn cart-btn" onclick="toggleCart()">🛒 <span class="cart-count" id="cart-count">0</span></button>
+        <ul class="nav-links">
+            <li><a onclick="setSearch('')">INÍCIO</a></li>
+            <li class="dropdown">
+                <a>SAPATOS ▾</a>
+                <div class="dropdown-content">
+                    <a onclick="setSearch('LV')">LV</a>
+                    <a onclick="setSearch('Dior')">Dior</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a>FATOS ▾</a>
+                <div class="dropdown-content">
+                    <a onclick="setSearch('Nike Tech')">Nike Tech</a>
+                    <a onclick="setSearch('Yamaha')">Yamaha</a>
+                    <a onclick="setSearch('Armani')">Armani</a>
+                    <a onclick="setSearch('Lacoste')">Lacoste</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a>CASACOS ▾</a>
+                <div class="dropdown-content">
+                    <a onclick="setSearch('Trapstar')">Trapstar</a>
+                    <a onclick="setSearch('Ralph Lauren')">Ralph Lauren</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a>ACESSÓRIOS ▾</a>
+                <div class="dropdown-content">
+                    <a onclick="setSearch('Gucci')">Gucci</a>
+                    <a onclick="setSearch('Prada')">Prada</a>
+                </div>
+            </li>
+        </ul>
+
+        <input type="text" id="search-input" class="search-bar" placeholder="Pesquisar produto..." onkeyup="filterProducts()">
+        
+        <div style="display:flex; gap:15px; align-items: center;">
+            <button onclick="toggleTheme()" style="background:none; border:none; cursor:pointer; font-size:18px;">🌓</button>
+            <button onclick="toggleCart()" style="background:none; border:none; cursor:pointer; font-size:18px; position:relative;">
+                🛒 <span id="cart-count" style="position:absolute; top:-8px; right:-8px; background:red; color:white; font-size:10px; padding:2px 6px; border-radius:50%;">0</span>
+            </button>
         </div>
     </div>
 </div>
 
-<div class="spacer"></div>
-
-<div class="hero" id="hero-section">
-    <img src="logo.png" alt="Shop Style Logo Big">
-    <h1>Bem-vindo à Shop Style</h1>
-</div>
-
 <div class="main-container">
-    <div id="no-product-msg">❌ Nenhum produto encontrado com esse nome</div>
+    <div id="no-product-msg" class="hidden" style="text-align:center; padding:50px;">❌ Nenhum produto encontrado</div>
 
     <section class="category-section" id="sec-sapatos">
-        <h2 class="section-title" id="sapatos">Sapatos</h2>
+        <h2 class="section-title">Sapatos</h2>
         <div class="products" id="list-sapatos"></div>
     </section>
 
     <section class="category-section" id="sec-fatos">
-        <h2 class="section-title" id="fatos">Fatos de Inverno</h2>
+        <h2 class="section-title">Fatos de Inverno</h2>
         <div class="products" id="list-fatos"></div>
     </section>
 
     <section class="category-section" id="sec-casacos">
-        <h2 class="section-title" id="casacos">Casacos</h2>
+        <h2 class="section-title">Casacos</h2>
         <div class="products" id="list-casacos"></div>
     </section>
 
     <section class="category-section" id="sec-acessorios">
-        <h2 class="section-title" id="acessorios">Acessórios</h2>
+        <h2 class="section-title">Acessórios</h2>
         <div class="products" id="list-acessorios"></div>
     </section>
 </div>
 
 <div class="cart-sidebar" id="cart-sidebar">
-    <div style="display: flex; justify-content: space-between; align-items: center;">
+    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
         <h2>Carrinho</h2>
-        <button onclick="toggleCart()" style="background:none; border:none; font-size:28px; cursor:pointer; color: var(--text-color);">&times;</button>
+        <button onclick="toggleCart()" style="background:none; border:none; font-size:30px; cursor:pointer; color: var(--text-color);">&times;</button>
     </div>
-    <div id="cart-content" class="cart-items"></div>
-    <div id="checkout-section" class="checkout-form">
-        <h3>Dados de Envio</h3>
-        <input type="text" id="nome" placeholder="Nome Completo">
-        <input type="text" id="morada" placeholder="Morada">
-        <input type="text" id="contacto" placeholder="Telemóvel">
-        <select id="pagamento">
-            <option value="" disabled selected>Método de Pagamento</option>
-            <option value="MB WAY">MB WAY</option>
-            <option value="Contra-Reembolso">Contra-Reembolso</option>
-        </select>
-    </div>
-    <div style="margin-top: auto; padding-top: 20px;">
-        <h3 id="total-price" style="text-align: right; margin-bottom: 10px;">Total: 0€</h3>
-        <button id="main-cart-btn" class="buy-btn" onclick="processCheckout()" style="background: #25d366;">Finalizar Pedido</button>
+    <div id="cart-content" style="flex:1; overflow-y:auto; margin:20px 0;"></div>
+    <div style="margin-top: auto;">
+        <h3 id="total-price" style="text-align:right; margin-bottom:15px; font-size: 20px;">Total: 0€</h3>
+        <button class="buy-btn" onclick="sendToWhatsApp()" style="background:#25d366;">Finalizar Pedido (WhatsApp)</button>
     </div>
 </div>
 
 <script>
-    const sapatos = [
-        {id: 'lv1', name: 'LV Skate Preto', price: 90, img: 'lv_skate_preto1.jpg'},
-        {id: 'lv2', name: 'LV Skate Bege', price: 90, img: 'lv_skate_bege1.jpg'},
-        {id: 'lv3', name: 'LV Skate Cinza', price: 90, img: 'lv_skate_cinza1.jpg'},
-        {id: 'lv4', name: 'LV Skate Azul', price: 90, img: 'lv_skate_azul1.jpg'},
-        {id: 'lv5', name: 'LV Skate Full Preto', price: 90, img: 'lv_skate_fullpreto1.jpg'},
-        {id: 'lv6', name: 'LV Skate Full Cinza', price: 90, img: 'lv_skate_fullcinza1.jpg'},
-        {id: 'lv7', name: 'LV Skate Preto/Branco', price: 90, img: 'lv_skate_fullpreto_branco1.jpg'},
-        {id: 'dior1', name: 'Dior B30 Brancos', price: 90, img: 'Dior_b30_branco1.jpg'},
-        {id: 'dior2', name: 'Dior B22 Azul/Branco', price: 80, img: 'Dior_b22_azul_branco1.jpg'},
-        {id: 'dior3', name: 'Dior B22 Pretos', price: 80, img: 'Dior_b22_preto1.jpg'}
-    ];
+    const data = {
+        sapatos: [
+            {id: 'lv1', name: 'LV Skate Preto', price: 90, img: 'lv_skate_preto1.jpg'},
+            {id: 'lv2', name: 'LV Skate Bege', price: 90, img: 'lv_skate_bege1.jpg'},
+            {id: 'lv3', name: 'LV Skate Cinza', price: 90, img: 'lv_skate_cinza1.jpg'},
+            {id: 'lv4', name: 'LV Skate Azul', price: 90, img: 'lv_skate_azul1.jpg'},
+            {id: 'lv5', name: 'LV Skate Full Preto', price: 90, img: 'lv_skate_fullpreto1.jpg'},
+            {id: 'lv6', name: 'LV Skate Full Cinza', price: 90, img: 'lv_skate_fullcinza1.jpg'},
+            {id: 'lv7', name: 'LV Skate Preto/Branco', price: 90, img: 'lv_skate_fullpreto_branco1.jpg'},
+            {id: 'dior1', name: 'Dior B30 Brancos', price: 90, img: 'Dior_b30_branco1.jpg'},
+            {id: 'dior2', name: 'Dior B22 Azul/Branco', price: 80, img: 'Dior_b22_azul_branco1.jpg'},
+            {id: 'dior3', name: 'Dior B22 Pretos', price: 80, img: 'Dior_b22_preto1.jpg'}
+        ],
+        fatos: [
+            {id: 'nk1', name: 'Nike Tech', price: 80, img: 'Nike_tech1.jpg'},
+            {id: 'ym1', name: 'Yamaha', price: 80, img: 'Yamaha.jpg'},
+            {id: 'am1', name: 'EA7 Armani', price: 80, img: 'S.jpg'},
+            {id: 'lc1', name: 'Lacoste', price: 80, img: 'l xl .jpg'},
+            {id: 'ua1', name: 'Under Armour', price: 80, img: 'Under.jpg'}
+        ],
+        casacos: [
+            {id: 'rl1', name: 'Casaco Ralph Lauren', price: 90, img: 'Polo.jpg'},
+            {id: 'ts1', name: 'Casaco Trapstar', price: 90, img: 'trap.jpg'},
+            {id: 'ts2', name: 'Casaco Trapstar', price: 90, img: 'TRAPS.jpg'}
+        ],
+        acessorios: [
+            {id: 'ac1', name: 'Bolsa Prada', price: 70, img: 'Prada.jpg'},
+            {id: 'ac2', name: 'Bolsa Gucci', price: 60, img: 'bolsagucci.jpg'},
+            {id: 'ac3', name: 'Bolsa Gucci', price: 60, img: 'bolsagucci (2).jpg'},
+            {id: 'ac4', name: 'Bolsa Gucci', price: 60, img: 'bolsagucci (3).jpg'},
+            {id: 'ac5', name: 'Bolsa Gucci', price: 60, img: 'bolsagucci (4).jpg'},
+            {id: 'ac6', name: 'Bolsa Gucci', price: 60, img: 'bolsagucci (5).jpg'},
+            {id: 'ac7', name: 'Bolsa Gucci', price: 60, img: 'bolsagucci (6).jpg'},
+            {id: 'ac8', name: 'Bolsa Gucci', price: 60, img: 'bolsagucci (7).jpg'},
+            {id: 'ac9', name: 'Bolsa Gucci', price: 60, img: 'bolsagucci (8).jpg'},
+            {id: 'ac10', name: 'Bolsa Gucci', price: 60, img: 'bolsagucci (9).jpg'}
+        ]
+    };
 
-    const fatos = [
-        {id: 'nk1', name: 'Nike Tech', price: 80, img: 'Nike_tech1.jpg'},
-        {id: 'ym1', name: 'Yamaha', price: 80, img: 'Yamaha.jpg'},
-        {id: 'am1', name: 'EA7 Armani', price: 80, img: 'S.jpg'},
-        {id: 'lc1', name: 'Lacoste', price: 80, img: 'l xl .jpg'},
-        {id: 'ua1', name: 'Under Armour', price: 80, img: 'Under.jpg'}
-    ];
-
-    const casacos = [
-        {id: 'rl1', name: 'Casaco Ralph Lauren', price: 90, img: 'Polo.jpg'},
-        {id: 'ts1', name: 'Casaco Trapstar XS-M', price: 90, img: 'trap.jpg'},
-        {id: 'ts2', name: 'Casaco Trapstar S', price: 90, img: 'TRAPS.jpg'}
-    ];
-
-    const acessorios = [
-        {id: 'pr1', name: 'Bolsa Prada', price: 70, img: 'Prada.jpg'},
-        {id: 'pr1', name: 'Bolsa Gucci', price: 60, img: 'bolsagucci.jpg'},
-	    {id: 'pr1', name: 'Bolsa Gucci', price: 60, img: 'bolsagucci (2).jpg'},
-	    {id: 'pr1', name: 'Bolsa Gucci', price: 60, img: 'bolsagucci (3).jpg'},
-	    {id: 'pr1', name: 'Bolsa Gucci', price: 60, img: 'bolsagucci (4).jpg'},
-	    {id: 'pr1', name: 'Bolsa Gucci', price: 60, img: 'bolsagucci (5).jpg'},
-	    {id: 'pr1', name: 'Bolsa Gucci', price: 60, img: 'bolsagucci (6).jpg'},
-	    {id: 'pr1', name: 'Bolsa Gucci', price: 60, img: 'bolsagucci (7).jpg'},
-	    {id: 'pr1', name: 'Bolsa Gucci', price: 60, img: 'bolsagucci (8).jpg'},
-	    {id: 'pr1', name: 'Bolsa Gucci', price: 60, img: 'bolsagucci (9).jpg'}
-    ];
+    let selectedSizes = {};
+    let cart = [];
 
     function render() {
-        document.getElementById('list-sapatos').innerHTML = sapatos.map(p => createHTML(p, [40,41,42,43,44,45])).join('');
-        document.getElementById('list-fatos').innerHTML = fatos.map(p => createHTML(p, ['S','M','L','XL'])).join('');
-        document.getElementById('list-casacos').innerHTML = casacos.map(p => createHTML(p, ['S','M','L','XL'])).join('');
-        document.getElementById('list-acessorios').innerHTML = acessorios.map(p => createHTML(p, ['Único'])).join('');
+        document.getElementById('list-sapatos').innerHTML = data.sapatos.map(p => createHTML(p, [40,41,42,43,44,45])).join('');
+        document.getElementById('list-fatos').innerHTML = data.fatos.map(p => createHTML(p, ['S','M','L','XL'])).join('');
+        document.getElementById('list-casacos').innerHTML = data.casacos.map(p => createHTML(p, ['S','M','L','XL'])).join('');
+        document.getElementById('list-acessorios').innerHTML = data.acessorios.map(p => createHTML(p, ['Único'])).join('');
     }
 
     function createHTML(p, sizes) {
@@ -222,56 +234,24 @@
             <div class="product" data-name="${p.name.toLowerCase()}">
                 <img src="${p.img}">
                 <h3>${p.name}</h3>
-                <p class="price">${p.price}€</p>
-                <select class="size-selector" id="size-${p.id}">
-                    ${sizes.map(s => `<option value="${s}">Tamanho ${s}</option>`).join('')}
-                </select>
-                <button class="buy-btn" onclick="addToCart('${p.name}', ${p.price}, 'size-${p.id}')">Adicionar</button>
+                <p style="font-weight:bold; color:var(--accent); margin:10px 0;">${p.price}€</p>
+                <div class="size-container">
+                    ${sizes.map(s => `<div class="size-chip" onclick="setProductSize('${p.id}', '${s}', this)">${s}</div>`).join('')}
+                </div>
+                <button class="buy-btn" onclick="addToCart('${p.id}', '${p.name}', ${p.price})">Adicionar</button>
             </div>
         `;
     }
 
-    // FUNÇÃO DE FILTRAGEM CORRIGIDA
-    function filterProducts() {
-        const query = document.getElementById('search-input').value.toLowerCase();
-        const sections = document.querySelectorAll('.category-section');
-        const hero = document.getElementById('hero-section');
-        let totalVisible = 0;
-
-        // Se houver pesquisa, esconde o logótipo central (Hero) para dar espaço
-        if (query.length > 0) hero.classList.add('hidden');
-        else hero.classList.remove('hidden');
-
-        sections.forEach(section => {
-            const products = section.querySelectorAll('.product');
-            let sectionHasMatch = false;
-
-            products.forEach(p => {
-                const name = p.getAttribute('data-name');
-                if (name.includes(query)) {
-                    p.classList.remove('hidden');
-                    sectionHasMatch = true;
-                    totalVisible++;
-                } else {
-                    p.classList.add('hidden');
-                }
-            });
-
-            // Esconde ou mostra a SECÇÃO INTEIRA (Título + Grelha)
-            if (sectionHasMatch) {
-                section.classList.remove('hidden');
-            } else {
-                section.classList.add('hidden');
-            }
-        });
-
-        // Mostra mensagem de erro se nada for encontrado
-        document.getElementById('no-product-msg').style.display = (totalVisible === 0 && query !== "") ? "block" : "none";
+    function setProductSize(productId, size, element) {
+        selectedSizes[productId] = size;
+        element.parentElement.querySelectorAll('.size-chip').forEach(c => c.classList.remove('active'));
+        element.classList.add('active');
     }
 
-    let cart = [];
-    function addToCart(name, price, sizeId) {
-        const size = document.getElementById(sizeId).value;
+    function addToCart(id, name, price) {
+        const size = selectedSizes[id];
+        if(!size) return alert("Selecione o tamanho!");
         cart.push({ name, price, size });
         updateCart();
         document.getElementById('cart-sidebar').classList.add('active');
@@ -280,41 +260,73 @@
     function updateCart() {
         const content = document.getElementById('cart-content');
         let total = 0;
-        content.innerHTML = '';
-        cart.forEach((item, index) => {
+        content.innerHTML = cart.map((item, index) => {
             total += item.price;
-            content.innerHTML += `<div class="cart-item">
+            return `<div style="display:flex; justify-content:space-between; margin-bottom:10px; border-bottom:1px solid var(--border-color); padding:5px 0;">
                 <span><b>${item.name}</b> (${item.size})</span>
                 <button onclick="removeItem(${index})" style="color:red; background:none; border:none; cursor:pointer;">&times;</button>
             </div>`;
-        });
+        }).join('');
         document.getElementById('cart-count').innerText = cart.length;
         document.getElementById('total-price').innerText = `Total: ${total}€`;
     }
 
     function removeItem(i) { cart.splice(i, 1); updateCart(); }
+
+    function filterProducts() {
+        const query = document.getElementById('search-input').value.toLowerCase();
+        const sections = document.querySelectorAll('.category-section');
+        let totalFound = 0;
+
+        sections.forEach(section => {
+            const products = section.querySelectorAll('.product');
+            let sectionHasMatch = false;
+            products.forEach(p => {
+                const name = p.getAttribute('data-name');
+                if(name.includes(query)) {
+                    p.classList.remove('hidden');
+                    sectionHasMatch = true;
+                    totalFound++;
+                } else { p.classList.add('hidden'); }
+            });
+            section.classList.toggle('hidden', !sectionHasMatch);
+        });
+        document.getElementById('no-product-msg').classList.toggle('hidden', totalFound > 0 || query === "");
+    }
+
+    function setSearch(brand) {
+        document.getElementById('search-input').value = brand;
+        filterProducts();
+    }
+
     function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('active'); }
     function toggleTheme() { document.body.setAttribute('data-theme', document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); }
 
-    function processCheckout() {
-        const sidebar = document.getElementById('cart-sidebar');
-        if(!sidebar.classList.contains('checkout-active')) {
-            if(cart.length === 0) return alert("Carrinho vazio!");
-            sidebar.classList.add('checkout-active');
-            document.getElementById('main-cart-btn').innerText = "Enviar para o WhatsApp";
-        } else {
-            const n = document.getElementById('nome').value;
-            const m = document.getElementById('morada').value;
-            const c = document.getElementById('contacto').value;
-            const p = document.getElementById('pagamento').value;
+    function sendToWhatsApp() {
+        if(cart.length === 0) return alert("Carrinho vazio!");
+        
+        const agora = new Date();
+        const dataFormatada = agora.toLocaleDateString('pt-PT');
+        const horaFormatada = agora.toLocaleTimeString('pt-PT', {hour: '2-digit', minute:'2-digit'});
+        
+        let total = cart.reduce((a, b) => a + b.price, 0);
+        
+        let texto = `*🛍️ NOVO PEDIDO - SHOP STYLE* %0A`;
+        texto += `_Data: ${dataFormatada} | Hora: ${horaFormatada}_ %0A`;
+        texto += `------------------------------------------%0A%0A`;
+        
+        texto += `*DETALHES DOS ARTIGOS:* %0A`;
+        cart.forEach((item, index) => {
+            texto += `${index + 1}. *${item.name}* %0A`;
+            texto += `   └ Tam: ${item.size} | Valor: ${item.price}€ %0A`;
+        });
+        
+        texto += `%0A------------------------------------------%0A`;
+        texto += `*TOTAL A PAGAR: ${total}€* %0A`;
+        texto += `------------------------------------------%0A%0A`;
+        
 
-            if(!n || !m || !c || !p) return alert("Preencha todos os dados!");
-            
-            let itens = cart.map(i => ` • ${i.name} (Tamanho: ${i.size})`).join('%0A');
-            let total = cart.reduce((a, b) => a + b.price, 0);
-            let texto = `*NOVA ENCOMENDA SHOP STYLE*%0A%0A*Produtos:*%0A${itens}%0A%0A*VALOR TOTAL:* ${total}€%0A%0A*DADOS:*%0A${n}%0A${m}%0A${c}%0A%0A*MÉTODO:* ${p}`;
-            window.open(`https://wa.me/351920019932?text=${texto}`, '_blank');
-        }
+        window.open(`https://wa.me/351920019932?text=${texto}`, '_blank');
     }
 
     render();
